@@ -22,6 +22,7 @@ void main() async {
     if (kIsWeb && (defaultTargetPlatform == TargetPlatform.macOS || defaultTargetPlatform == TargetPlatform.windows || defaultTargetPlatform == TargetPlatform.linux)) {
     runApp(DesktopBlockedApp());
   } else {
+    // will run on android emulator, since kIsWeb will be false.
     runApp(MyApp());
   }
   //runApp(MyApp());
