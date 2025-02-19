@@ -5,34 +5,37 @@ import 'package:tirutsava/widgets/side_drawer.dart';
 import '/widgets/appbar.dart';
 
 class Gallery extends StatelessWidget {
-  const Gallery({super.key});
-
+  const Gallery({required this.imagePaths,super.key});
+  final List<String> imagePaths;
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
       debugShowCheckedModeBanner: false,
-      home: const GalleryScreen(),
+      home: GalleryScreen(imagePaths: imagePaths,),
     );
   }
 }
 
 class GalleryScreen extends StatefulWidget {
-  const GalleryScreen({super.key});
+  const GalleryScreen({required this.imagePaths,super.key});
+
+  final List<String> imagePaths;
 
   @override
   State<GalleryScreen> createState() => _GalleryScreenState();
 }
 
 class _GalleryScreenState extends State<GalleryScreen> {
-  final List<String> imagePaths = [
-    'lib/assets/images/image1.jpg',
-    'lib/assets/images/image2.jpg',
-    'lib/assets/images/image3.jpg',
-    'lib/assets/images/image4.jpg',
-    'lib/assets/images/image5.jpg',
-    'lib/assets/images/image6.jpg',
-    'lib/assets/images/image7.jpg',
-  ];
+
+  final Random random = Random();
+  late List<int> tileConfigurations;
+  String? selectedImage;
+
+  @override
+  void initState() {
+    super.initState();
+    tileConfigurations = List.generate(widget.imagePaths.length, (index) => random.nextInt(3) + 1);
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -68,8 +71,8 @@ class _GalleryScreenState extends State<GalleryScreen> {
                       mainAxisSpacing: 8,
                       crossAxisSpacing: 8,
                       children: List.generate(
-                        imagePaths.length,
-                        (index) => _buildImageTile(imagePaths[index]),
+                        widget.imagePaths.length,
+                        (index) => _buildImageTile(widget.imagePaths[index], index),
                       ),
                     ),
                   ),
@@ -77,22 +80,47 @@ class _GalleryScreenState extends State<GalleryScreen> {
               ),
             ],
           ),
+
+          // Image Popup
+          if (selectedImage != null)
+            AnimatedSwitcher(
+              duration: const Duration(milliseconds: 400),
+              transitionBuilder: (Widget child, Animation<double> animation) {
+                return FadeTransition(
+                  opacity: animation,
+                  child: ScaleTransition(scale: animation, child: child),
+                );
+              },
+              child: GestureDetector(
+                onTap: () => setState(() => selectedImage = null),
+                child: Container(
+                  color: Colors.black.withOpacity(0.8),
+                  alignment: Alignment.center,
+                  child: ClipRRect(
+                    borderRadius: BorderRadius.circular(15),
+                    child: Image.asset(selectedImage!, fit: BoxFit.contain),
+                  ),
+                ),
+              ),
+            ),
         ],
       ),
     );
-}
+  }
 
-  Widget _buildImageTile(String imagePath) {
-    final Random random = Random();
-    int width = 1 + random.nextInt(2); // Random width: 1 or 2
-    int height = 1 + random.nextInt(3); // Random height: 1, 2, or 3
+  Widget _buildImageTile(String imagePath, int index) {
+    int width = 1 + (tileConfigurations[index] % 2); 
+    int height = 1 + (tileConfigurations[index] % 3); 
 
     return StaggeredGridTile.count(
       crossAxisCellCount: width,
       mainAxisCellCount: height,
-      child: ClipRRect(
-        borderRadius: BorderRadius.circular(10),
-        child: Image.asset(imagePath, fit: BoxFit.cover),
+      child: GestureDetector(
+        onTap: () => setState(() => selectedImage = imagePath),
+        child: ClipRRect(
+          borderRadius: BorderRadius.circular(10),
+          child: Image.asset(imagePath, fit: BoxFit.cover),
+        ),
       ),
     );
   }

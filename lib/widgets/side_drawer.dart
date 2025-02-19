@@ -8,6 +8,7 @@ import '../screens/aboutus.dart';
 import '../screens/uploadpage.dart';
 import '../screens/gallery.dart';
 import '../screens/map.dart';
+import '../data/image_paths.dart';
 
 class SideDrawer extends StatelessWidget {
   const SideDrawer({super.key});
@@ -76,7 +77,7 @@ class SideDrawer extends StatelessWidget {
           ListTile(
             onTap: () {
               Navigator.of(context).push(
-                MaterialPageRoute(builder: (ctx) => Gallery()),
+                MaterialPageRoute(builder: (ctx) => Gallery(imagePaths: imagePaths,)),
               );
             },
             leading: const Icon(
