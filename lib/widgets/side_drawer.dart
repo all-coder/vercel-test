@@ -66,7 +66,7 @@ class SideDrawer extends StatelessWidget {
               color: Color(0xff2F2E2E),
             ),
             title: Text(
-              'Upload',
+              'Reminisce',
               style: GoogleFonts.ibmPlexMono(
                   fontWeight: FontWeight.w400,
                   fontSize: 25,

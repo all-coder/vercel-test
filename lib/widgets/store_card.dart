@@ -32,7 +32,7 @@ class StoreCard extends StatelessWidget {
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           ClipRRect(
-            borderRadius: BorderRadius.vertical(top: Radius.circular(10)),
+            borderRadius: BorderRadius.vertical(top: Radius.circular(5)),
             child: Image.network(
               imageUrl,
               height: 120,

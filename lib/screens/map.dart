@@ -20,9 +20,9 @@ class Map extends StatelessWidget {
           Expanded(
             child: PhotoView(
               imageProvider: AssetImage(mapImagePath),
-              minScale: PhotoViewComputedScale.contained,
+              minScale: PhotoViewComputedScale.covered,
               maxScale: PhotoViewComputedScale.covered * 4.0,
-              initialScale: PhotoViewComputedScale.contained * 0.9,
+              initialScale: PhotoViewComputedScale.covered,
               backgroundDecoration: const BoxDecoration(
                 color: Color(0xff0A0908),
               ),
