@@ -1,15 +1,14 @@
-// necessary imports
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:intl/intl.dart';
 import 'package:carousel_slider/carousel_slider.dart'; 
 
-// relative imports
 import '../models/models.dart';
 
 class EventTile extends StatelessWidget {
   const EventTile({required this.event, super.key});
-  final Event event; // accepts only an event object
+  final Event event;
+
   @override
   Widget build(BuildContext context) {
     String formattedTime = DateFormat('h a').format(event.time);
@@ -31,7 +30,7 @@ class EventTile extends StatelessWidget {
             left: 20,
             top: 10,
             child: SizedBox(
-              width: MediaQuery.of(context).size.width - 40,
+              width: MediaQuery.of(context).size.width - 60, 
               child: Text(
                 event.title,
                 style: GoogleFonts.dmMono(
@@ -39,8 +38,8 @@ class EventTile extends StatelessWidget {
                   color: event.foreground,
                   fontWeight: FontWeight.w400,
                 ),
-                softWrap: true,
-                overflow: TextOverflow.visible,
+                maxLines: 1,
+                overflow: TextOverflow.ellipsis,
               ),
             ),
           ),
@@ -54,12 +53,19 @@ class EventTile extends StatelessWidget {
                   color: event.foreground,
                   size: 35,
                 ),
-                Text(
-                  event.location,
-                  style: GoogleFonts.dmMono(
+                SizedBox(width: 5),
+                SizedBox(
+                  width: MediaQuery.of(context).size.width - 100, 
+                  child: Text(
+                    event.location,
+                    style: GoogleFonts.dmMono(
                       fontSize: 25,
                       color: event.foreground,
-                      fontWeight: FontWeight.w400),
+                      fontWeight: FontWeight.w400,
+                    ),
+                    maxLines: 1,
+                    overflow: TextOverflow.ellipsis,
+                  ),
                 ),
               ],
             ),
@@ -74,14 +80,19 @@ class EventTile extends StatelessWidget {
                   color: event.foreground,
                   size: 35,
                 ),
-                const SizedBox(
-                    width: 5), 
-                Text(
-                  "$formattedTime onwards",
-                  style: GoogleFonts.dmMono(
+                SizedBox(width: 5),
+                SizedBox(
+                  width: MediaQuery.of(context).size.width - 100, 
+                  child: Text(
+                    "$formattedTime onwards",
+                    style: GoogleFonts.dmMono(
                       fontSize: 25,
                       color: event.foreground,
-                      fontWeight: FontWeight.w400),
+                      fontWeight: FontWeight.w400,
+                    ),
+                    maxLines: 1,
+                    overflow: TextOverflow.ellipsis,
+                  ),
                 ),
               ],
             ),
@@ -100,12 +111,10 @@ class EventCarousel extends StatelessWidget {
   Widget build(BuildContext context) {
     return CarouselSlider(
       options: CarouselOptions(
-        //height: MediaQuery.of(context).size.height / 4,
         enlargeCenterPage: true,
         autoPlay: true, 
         autoPlayInterval: Duration(seconds: 3), 
-        autoPlayAnimationDuration:
-            Duration(milliseconds: 800), 
+        autoPlayAnimationDuration: Duration(milliseconds: 800), 
         autoPlayCurve: Curves.easeInOut,
         viewportFraction: 1,
         enableInfiniteScroll: false,
@@ -114,3 +123,42 @@ class EventCarousel extends StatelessWidget {
     );
   }
 }
+
+
+// --------------------//
+// uncomment this code for date-based filtering and delete the code right above this code //
+
+// class EventCarousel extends StatelessWidget {
+//   const EventCarousel({required this.events, super.key});
+//   final List<Event> events;
+
+//   @override
+//   Widget build(BuildContext context) {
+//     DateTime today = DateTime.now();
+//     List<Event> todayEvents = events.where((event) {
+//       return event.time.year == today.year &&
+//              event.time.month == today.month &&
+//              event.time.day == today.day;
+//     }).toList();
+
+//     return todayEvents.isEmpty
+//         ? Center(
+//             child: Text(
+//               "No events for today",
+//               style: GoogleFonts.dmMono(fontSize: 20, fontWeight: FontWeight.w400),
+//             ),
+//           )
+//         : CarouselSlider(
+//             options: CarouselOptions(
+//               enlargeCenterPage: true,
+//               autoPlay: true,
+//               autoPlayInterval: Duration(seconds: 3),
+//               autoPlayAnimationDuration: Duration(milliseconds: 800),
+//               autoPlayCurve: Curves.easeInOut,
+//               viewportFraction: 1,
+//               enableInfiniteScroll: false,
+//             ),
+//             items: todayEvents.map((event) => EventTile(event: event)).toList(),
+//           );
+//   }
+// }
