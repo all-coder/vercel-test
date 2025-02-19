@@ -37,7 +37,7 @@ class EventTile extends StatelessWidget {
                 style: GoogleFonts.dmMono(
                   fontSize: 30,
                   color: event.foreground,
-                  fontWeight: FontWeight.w600,
+                  fontWeight: FontWeight.w400,
                 ),
                 softWrap: true,
                 overflow: TextOverflow.visible,
@@ -59,7 +59,7 @@ class EventTile extends StatelessWidget {
                   style: GoogleFonts.dmMono(
                       fontSize: 25,
                       color: event.foreground,
-                      fontWeight: FontWeight.w600),
+                      fontWeight: FontWeight.w400),
                 ),
               ],
             ),
@@ -81,7 +81,7 @@ class EventTile extends StatelessWidget {
                   style: GoogleFonts.dmMono(
                       fontSize: 25,
                       color: event.foreground,
-                      fontWeight: FontWeight.w600),
+                      fontWeight: FontWeight.w400),
                 ),
               ],
             ),

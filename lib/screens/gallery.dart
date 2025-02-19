@@ -49,7 +49,7 @@ class _GalleryScreenState extends State<GalleryScreen> {
             child: Opacity(
               opacity: 0.2, // Adjust transparency if needed
               child: Image.asset(
-                "lib/assets/waves_background.png",
+                "lib/assets/images/waves_background.png",
                 fit: BoxFit.cover,
               ),
             ),

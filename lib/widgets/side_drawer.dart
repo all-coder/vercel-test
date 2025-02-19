@@ -7,6 +7,7 @@ import 'package:tirutsava/screens/home.dart';
 import '../screens/aboutus.dart';
 import '../screens/uploadpage.dart';
 import '../screens/gallery.dart';
+import '../screens/map.dart';
 
 class SideDrawer extends StatelessWidget {
   const SideDrawer({super.key});
@@ -85,6 +86,27 @@ class SideDrawer extends StatelessWidget {
             ),
             title: Text(
               'Gallery',
+              style: GoogleFonts.ibmPlexMono(
+                  fontWeight: FontWeight.w400,
+                  fontSize: 25,
+                  color: Colors.black),
+            ),
+          ),
+          ListTile(
+            onTap: () {
+              Navigator.of(context).push(
+                MaterialPageRoute(
+                    builder: (ctx) =>
+                        Map(mapImagePath: "lib/assets/images/map.jpg")),
+              );
+            },
+            leading: const Icon(
+              Icons.map_outlined,
+              size: 26,
+              color: Color(0xff2F2E2E),
+            ),
+            title: Text(
+              'Map',
               style: GoogleFonts.ibmPlexMono(
                   fontWeight: FontWeight.w400,
                   fontSize: 25,
