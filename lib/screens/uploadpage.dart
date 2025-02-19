@@ -123,7 +123,7 @@ class _UploadPageState extends State<UploadPage> {
           ),
           Column(
             children: [
-              const CustomAppBar(title: "Upload"),
+              const CustomAppBar(title: "Reminisce"),
               Expanded(
                 child: SingleChildScrollView(
                   scrollDirection: Axis.vertical,
@@ -167,7 +167,7 @@ class _UploadPageState extends State<UploadPage> {
                                 )
                               : Center(
                                   child: Text(
-                                    "Click to upload your content",
+                                    "Click to upload your photo(s)",
                                     style: GoogleFonts.firaMono(
                                         fontSize: 18,
                                         fontWeight: FontWeight.w400,

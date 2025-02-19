@@ -52,10 +52,11 @@ class Home extends StatelessWidget {
                   children: [
                     const SizedBox(height: 20),
                     Text(
-                      "NEON DREAMS. PURE EUPHORIA",
+                      "NEON DREAMS. PURE EUPHORIA.",
                       style: GoogleFonts.ibmPlexMono(
                         fontSize: 23,
-                        color: const Color(0xff63675D),
+                        color: const Color(0xffAFFC41),
+                       // color: const Color(0xff63675D),
                         fontWeight: FontWeight.w400,
                       ),
                     ),
