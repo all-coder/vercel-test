@@ -4,6 +4,7 @@ import 'package:google_fonts/google_fonts.dart';
 import 'package:tirutsava/screens/home.dart';
 
 // relative imports
+import '../screens/aboutus.dart';
 import '../screens/uploadpage.dart';
 import '../screens/gallery.dart';
 
@@ -84,6 +85,25 @@ class SideDrawer extends StatelessWidget {
             ),
             title: Text(
               'Gallery',
+              style: GoogleFonts.ibmPlexMono(
+                  fontWeight: FontWeight.w400,
+                  fontSize: 25,
+                  color: Colors.black),
+            ),
+          ),
+          ListTile(
+            onTap: () {
+              Navigator.of(context).push(
+                MaterialPageRoute(builder: (ctx) => AboutUs()),
+              );
+            },
+            leading: const Icon(
+              Icons.info_outline,
+              size: 26,
+              color: Color(0xff2F2E2E),
+            ),
+            title: Text(
+              'About Us',
               style: GoogleFonts.ibmPlexMono(
                   fontWeight: FontWeight.w400,
                   fontSize: 25,
