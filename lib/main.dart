@@ -1,6 +1,8 @@
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:tirutsava/screens/splash.dart';
+import 'dart:io';
+import 'package:flutter/foundation.dart';
 // import '/screens/uploadpage.dart';
 // import '/screens/gallery.dart';
 
@@ -17,7 +19,27 @@ void main() async {
       measurementId: "G-6GCVXNRJST"
     ),
   );
-  runApp(MyApp());
+    if (kIsWeb && (defaultTargetPlatform == TargetPlatform.macOS || defaultTargetPlatform == TargetPlatform.windows || defaultTargetPlatform == TargetPlatform.linux)) {
+    runApp(DesktopBlockedApp());
+  } else {
+    runApp(MyApp());
+  }
+  //runApp(MyApp());
+}
+
+class DesktopBlockedApp extends StatelessWidget {
+  const DesktopBlockedApp({super.key});
+  @override
+  Widget build(BuildContext context) {
+    return MaterialApp(
+      debugShowCheckedModeBanner: false,
+      home: Scaffold(
+        body: Center(
+          child: Text("This can only be opened in mobile devices."),
+        ),
+      ),
+    );
+  }
 }
 
 class MyApp extends StatelessWidget {
