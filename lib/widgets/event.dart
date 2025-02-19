@@ -16,7 +16,7 @@ class EventTile extends StatelessWidget {
     return Container(
       decoration: BoxDecoration(
         image: const DecorationImage(
-          image: AssetImage("lib/assets/waves_background.png"),
+          image: AssetImage("lib/assets/images/waves_background.png"),
           fit: BoxFit.fill,
         ),
         color: event.background,

@@ -115,7 +115,7 @@ class _UploadPageState extends State<UploadPage> {
                 color: Color(0xff0A0908),
                 image: DecorationImage(
                   image: AssetImage("lib/assets/waves_background.png"),
-                  fit: BoxFit.fill,
+                  fit: BoxFit.cover,
                 ),
               ),
               width: double.infinity,
@@ -130,7 +130,7 @@ class _UploadPageState extends State<UploadPage> {
                       padding: const EdgeInsets.all(10),
                       width: 280,
                       decoration: BoxDecoration(
-                        borderRadius: BorderRadius.circular(0),
+                        borderRadius: BorderRadius.circular(10),
                         color: const Color.fromARGB(255, 50, 49, 49),
                       ),
                       child: _selectedImages.isNotEmpty
@@ -173,7 +173,7 @@ class _UploadPageState extends State<UploadPage> {
                     width: 280,
                     height: 40,
                     decoration: BoxDecoration(
-                      borderRadius: BorderRadius.circular(0),
+                      borderRadius: BorderRadius.circular(10),
                       color: const Color.fromARGB(255, 50, 49, 49),
                     ),
                     child: TextField(
@@ -192,7 +192,7 @@ class _UploadPageState extends State<UploadPage> {
                     width: 280,
                     height: 150,
                     decoration: BoxDecoration(
-                      borderRadius: BorderRadius.circular(0),
+                      borderRadius: BorderRadius.circular(10),
                       color: const Color.fromARGB(255, 50, 49, 49),
                     ),
                     child: TextField(
@@ -213,7 +213,7 @@ class _UploadPageState extends State<UploadPage> {
                       backgroundColor: const Color.fromARGB(213, 238, 109, 77),
                       padding: const EdgeInsets.symmetric(horizontal: 50, vertical: 10),
                       shape: RoundedRectangleBorder(
-                        borderRadius: BorderRadius.circular(0),
+                        borderRadius: BorderRadius.circular(10),
                       ),
                     ),
                     onPressed: _uploadContent,

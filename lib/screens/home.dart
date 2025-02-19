@@ -4,17 +4,20 @@ import 'package:google_fonts/google_fonts.dart';
 // relative imports
 import '../widgets/appbar.dart';
 import '../widgets/event.dart';
-import '../models/dummy.dart';
 import '../widgets/side_drawer.dart';
 import '../widgets/store_slider.dart';
 import '../widgets/annoucement_tile.dart';
+
+// dump all event and stalls data into this directory.
+import '../data/stalls.dart';
+import '../data/events.dart';
 
 class Home extends StatelessWidget {
   const Home({super.key});
 
   @override
   Widget build(BuildContext context) {
-    // for now, will make it dynamic
+    // for now, will make it dynamic, connect it to firestore.
     const announcements = {
       "Paintball registration will be closing soon, at 3pm! Come ASAP":
           "7:30pm, 21st Feb,2025",
@@ -39,7 +42,7 @@ class Home extends StatelessWidget {
                   color: Color(0xff0A0908),
                   image: DecorationImage(
                     image: AssetImage(
-                      "lib/assets/waves_background.png", // Background vector
+                      "lib/assets/images/waves_background.png", // Background vector
                     ),
                     fit: BoxFit.cover,
                   ),
@@ -73,35 +76,7 @@ class Home extends StatelessWidget {
                       height: 20,
                     ),
                     StoreSlider(
-                      foodItems: [
-                        {
-                          "title": "Amigo's Pizza",
-                          "location": "Stall 24",
-                          "price": "800 for 2",
-                          "date": "21st - 23rd",
-                          "imageUrl":
-                              "https://i.pinimg.com/736x/86/f9/23/86f923d8d70666714af50b353f3decf9.jpg",
-                          "color": Colors.red.shade700,
-                        },
-                        {
-                          "title": "Super Burgers",
-                          "location": "Stall 89",
-                          "price": "800 for 2",
-                          "date": "21st - 23rd",
-                          "imageUrl":
-                              "https://i.pinimg.com/736x/80/1e/de/801edeeb3f1947234c392c7ab35395c1.jpg",
-                          "color": Colors.green.shade700,
-                        },
-                        {
-                          "title": "Bobac Coffee",
-                          "location": "Stall 4",
-                          "price": "800 for 2",
-                          "date": "21st - 23rd",
-                          "imageUrl":
-                              "https://i.pinimg.com/736x/9c/b9/5e/9cb95e8cf75da758f6cd284869ec45cd.jpg",
-                          "color": Colors.yellow.shade700,
-                        },
-                      ],
+                      foodItems: stalls,
                     ),
                     const SizedBox(
                       height: 10,

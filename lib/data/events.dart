@@ -2,7 +2,7 @@
 import 'package:flutter/material.dart';
 
 // relative imports
-import 'models.dart';
+import '../models/models.dart';
 
 
 //final Event dummyEvent = Event(title: "EDM Night", location: "AB1", time: DateTime(2025, 2, 12, 20, 0));
