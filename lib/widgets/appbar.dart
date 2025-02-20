@@ -27,9 +27,9 @@ class CustomAppBar extends StatelessWidget {
       width: double.infinity,
       child: Column(
         children: [
-          const SizedBox(
-            height: 35,
-          ),
+          // const SizedBox(
+          //   height: 35,
+          // ),
           Padding(
             padding: const EdgeInsets.only(left: 8, right: 8),
             child: Row(
