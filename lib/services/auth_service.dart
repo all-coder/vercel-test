@@ -1,38 +1,29 @@
 import 'package:firebase_auth/firebase_auth.dart';
-import 'package:firebase_auth_platform_interface/firebase_auth_platform_interface.dart';
+import 'package:flutter/material.dart';
 
 class FirebaseAuthentication {
   String phoneNumber = "";
-  
-  Future<ConfirmationResult> sendOtp(String phoneNumber) async {
+
+  Future<ConfirmationResult> sendOTP(String phoneNumber) async {
     this.phoneNumber = phoneNumber;
     FirebaseAuth auth = FirebaseAuth.instance;
-    
-    ConfirmationResult result = await auth.signInWithPhoneNumber(
-      '+91$phoneNumber',
-      RecaptchaVerifier(
-        auth: FirebaseAuthPlatform.instance,
-        container: 'recaptcha-container',
-        size: RecaptchaVerifierSize.compact, // or normal
-        onSuccess: () {
-          print('reCAPTCHA Completed!');
-        },
-        onError: (error) {
-          print('reCAPTCHA error: $error');
-        },
-        onExpired: () {
-          print('reCAPTCHA expired!');
-        },
-      ),
-    );
-    print("OTP sent to $phoneNumber");
-    return result;
+
+    ConfirmationResult confirmationResult =
+        await auth.signInWithPhoneNumber('+91$phoneNumber');
+
+    printMessage("OTP Sent to +91$phoneNumber");
+    return confirmationResult;
   }
-  
-  Future<void> authenticateMe(ConfirmationResult confirmationResult, String otp) async {
+
+  Future<void> authenticateMe(
+      ConfirmationResult confirmationResult, String otp) async {
     UserCredential userCredential = await confirmationResult.confirm(otp);
-    userCredential.additionalUserInfo!.isNewUser 
-      ? print("New User")
-      : print("Existing User");
+    printMessage(userCredential.additionalUserInfo!.isNewUser
+        ? "Successful Authentication"
+        : "User already exists");
+  }
+
+  void printMessage(String msg) {
+    debugPrint(msg);
   }
 }
