@@ -1,7 +1,6 @@
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:tirutsava/screens/splash.dart';
-import 'package:flutter/foundation.dart';
 // import '/screens/uploadpage.dart';
 // import '/screens/gallery.dart';
 
@@ -18,12 +17,13 @@ void main() async {
       measurementId: "G-6GCVXNRJST"
     ),
   );
-    if (kIsWeb && (defaultTargetPlatform == TargetPlatform.macOS || defaultTargetPlatform == TargetPlatform.windows || defaultTargetPlatform == TargetPlatform.linux)) {
-    runApp(DesktopBlockedApp());
-  } else {
-    // will run on android emulator, since kIsWeb will be false.
-    runApp(MyApp());
-  }
+  //   if (kIsWeb && (defaultTargetPlatform == TargetPlatform.macOS || defaultTargetPlatform == TargetPlatform.windows || defaultTargetPlatform == TargetPlatform.linux)) {
+  //   runApp(DesktopBlockedApp());
+  // } else {
+  //   // will run on android emulator, since kIsWeb will be false.
+  //   runApp(MyApp());
+  // }
+  runApp(MyApp());
   //runApp(MyApp());
 }
 

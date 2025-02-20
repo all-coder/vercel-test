@@ -1,7 +1,9 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:google_sign_in/google_sign_in.dart';
 import 'package:tirutsava/screens/interests.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 class Auth extends StatefulWidget {
   const Auth({super.key});
@@ -11,51 +13,42 @@ class Auth extends StatefulWidget {
 }
 
 class _AuthState extends State<Auth> {
-  final TextEditingController _phoneController = TextEditingController();
-  final TextEditingController _otpController = TextEditingController();
-  ConfirmationResult? _confirmationResult;
-  bool _otpSent = false;
+  final GoogleSignIn _googleSignIn = GoogleSignIn();
+  String? name, imageUrl, userEmail, uid;
 
-  Future<void> sendOTP() async {
-    String phoneNumber = _phoneController.text.trim();
-    if (phoneNumber.isEmpty) return;
-
-    FirebaseAuth auth = FirebaseAuth.instance;
+  Future<void> signInWithGoogle() async {
     try {
-      _confirmationResult = await auth.signInWithPhoneNumber('+91$phoneNumber');
-      setState(() => _otpSent = true);
-      debugPrint("OTP Sent to +91$phoneNumber");
+      GoogleAuthProvider googleProvider = GoogleAuthProvider();
+
+      // Sign in with Google for Web
+      final UserCredential userCredential =
+          await FirebaseAuth.instance.signInWithPopup(googleProvider);
+      final User? user = userCredential.user;
+
+      if (user != null) {
+        uid = user.uid;
+        name = user.displayName;
+        userEmail = user.email;
+        imageUrl = user.photoURL;
+
+        // Save authentication state
+        SharedPreferences prefs = await SharedPreferences.getInstance();
+        prefs.setBool('auth', true);
+
+        debugPrint("Google Sign-In Successful");
+        debugPrint("Name: $name");
+        debugPrint("Email: $userEmail");
+        debugPrint("Image URL: $imageUrl");
+
+        // Navigate to the next screen
+        Navigator.pushReplacement(
+          context,
+          MaterialPageRoute(builder: (context) => const Interest()),
+        );
+      }
     } catch (e) {
-      debugPrint("Failed to send OTP: $e");
+      debugPrint("Google Sign-In Failed: $e");
     }
-  }
-
-  Future<void> verifyOTP() async {
-    if (_confirmationResult == null) return;
-
-    String otp = _otpController.text.trim();
-    if (otp.isEmpty) return;
-
-    try {
-      UserCredential userCredential = await _confirmationResult!.confirm(otp);
-      bool isNewUser = userCredential.additionalUserInfo!.isNewUser;
-
-      debugPrint(isNewUser ? "Successful Authentication" : "User already exists");
-
-      Navigator.pushReplacement(
-        context,
-        MaterialPageRoute(builder: (context) => const Interest()),
-      );
-    } catch (e) {
-      debugPrint("OTP verification failed: $e");
-    }
-  }
-
-  @override
-  void dispose() {
-    _phoneController.dispose();
-    _otpController.dispose();
-    super.dispose();
   }
 
   @override
@@ -89,36 +82,9 @@ class _AuthState extends State<Auth> {
                   ),
                 ),
               ),
-              const SizedBox(height: 20),
-              TextField(
-                controller: _phoneController,
-                keyboardType: TextInputType.phone,
-                style: GoogleFonts.audiowide(color: Colors.white),
-                decoration: const InputDecoration(
-                  hintText: 'Enter your phone number',
-                  hintStyle: TextStyle(color: Colors.grey),
-                  enabledBorder: UnderlineInputBorder(
-                    borderSide: BorderSide(color: Colors.white),
-                  ),
-                ),
-              ),
-              const SizedBox(height: 20),
-              if (_otpSent)
-                TextField(
-                  controller: _otpController,
-                  keyboardType: TextInputType.number,
-                  style: GoogleFonts.audiowide(color: Colors.white),
-                  decoration: const InputDecoration(
-                    hintText: 'Enter your OTP',
-                    hintStyle: TextStyle(color: Colors.grey),
-                    enabledBorder: UnderlineInputBorder(
-                      borderSide: BorderSide(color: Colors.white),
-                    ),
-                  ),
-                ),
               const SizedBox(height: 60),
               ElevatedButton(
-                onPressed: _otpSent ? verifyOTP : sendOTP,
+                onPressed: signInWithGoogle,
                 style: ElevatedButton.styleFrom(
                   backgroundColor: Colors.white,
                   foregroundColor: Colors.black,
@@ -128,7 +94,7 @@ class _AuthState extends State<Auth> {
                 ),
                 child: Center(
                   child: Text(
-                    _otpSent ? 'Verify OTP' : 'Send OTP',
+                    'Sign In with Google',
                     style: GoogleFonts.spaceGrotesk(
                       color: Colors.black,
                       fontSize: 28,
