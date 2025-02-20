@@ -1,69 +1,38 @@
 import 'package:firebase_auth/firebase_auth.dart';
-import 'package:fluttertoast/fluttertoast.dart';
-import 'package:flutter/material.dart'; // Ensure this is also imported for Colors
+import 'package:firebase_auth_platform_interface/firebase_auth_platform_interface.dart';
 
-
-class AuthService {
-
-  Future<void> signup({
-    required String email,
-    required String password,
-  }) async {
-    try{
-      await FirebaseAuth.instance.createUserWithEmailAndPassword(
-        email: email,
-        password: password,
-      );
-    } on FirebaseAuthException catch(e)  {
-      String message = '';
-      if(e.code == 'weak-password'){
-        message = 'The password provided is too weak';
-      }else if(e.code == 'email-already-in-use'){
-        message = "An account with that email already exists";
-      }
-
-      Fluttertoast.showToast(
-        msg: message,
-        toastLength: Toast.LENGTH_SHORT,
-        gravity: ToastGravity.BOTTOM,
-        timeInSecForIosWeb: 1,
-        backgroundColor: Colors.red,
-        textColor: Colors.white,
-        fontSize: 16.0
-      );
-    }
+class FirebaseAuthentication {
+  String phoneNumber = "";
+  
+  Future<ConfirmationResult> sendOtp(String phoneNumber) async {
+    this.phoneNumber = phoneNumber;
+    FirebaseAuth auth = FirebaseAuth.instance;
+    
+    ConfirmationResult result = await auth.signInWithPhoneNumber(
+      '+91 $phoneNumber',
+      RecaptchaVerifier(
+        auth: FirebaseAuthPlatform.instance,
+        container: 'recaptcha-container',
+        size: RecaptchaVerifierSize.compact, // or normal
+        onSuccess: () {
+          print('reCAPTCHA Completed!');
+        },
+        onError: (error) {
+          print('reCAPTCHA error: $error');
+        },
+        onExpired: () {
+          print('reCAPTCHA expired!');
+        },
+      ),
+    );
+    print("OTP sent to $phoneNumber");
+    return result;
   }
-
-  Future<void> login({
-    required String email,
-    required String password,
-  }) async {
-    try{
-      await FirebaseAuth.instance.signInWithEmailAndPassword(
-        email: email,
-        password: password,
-      );
-    } on FirebaseAuthException catch(e)  {
-      String message = '';
-      if(e.code == 'user-not-found'){
-        message = 'No user found for that email';
-      }else if(e.code == 'wrong-password'){
-        message = "Wrong password provided for that user";
-      }
-
-      Fluttertoast.showToast(
-        msg: message,
-        toastLength: Toast.LENGTH_SHORT,
-        gravity: ToastGravity.BOTTOM,
-        timeInSecForIosWeb: 1,
-        backgroundColor: Colors.red,
-        textColor: Colors.white,
-        fontSize: 16.0
-      );
-    }
-  }
-
-  Future<void> logout() async {
-    await FirebaseAuth.instance.signOut();
+  
+  Future<void> authenticateMe(ConfirmationResult confirmationResult, String otp) async {
+    UserCredential userCredential = await confirmationResult.confirm(otp);
+    userCredential.additionalUserInfo!.isNewUser 
+      ? print("New User")
+      : print("Existing User");
   }
 }
