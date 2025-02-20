@@ -9,7 +9,7 @@ class FirebaseAuthentication {
     FirebaseAuth auth = FirebaseAuth.instance;
     
     ConfirmationResult result = await auth.signInWithPhoneNumber(
-      '+91 $phoneNumber',
+      '+91$phoneNumber',
       RecaptchaVerifier(
         auth: FirebaseAuthPlatform.instance,
         container: 'recaptcha-container',
