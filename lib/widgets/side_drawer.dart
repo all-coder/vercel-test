@@ -99,7 +99,7 @@ class SideDrawer extends StatelessWidget {
               Navigator.of(context).push(
                 MaterialPageRoute(
                     builder: (ctx) =>
-                        Map(mapImagePath: "lib/assets/images/map.jpg")),
+                        Map(mapImagePath: "assets/images/map.jpg")),
               );
             },
             leading: const Icon(

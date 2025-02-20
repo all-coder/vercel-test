@@ -117,7 +117,7 @@ class _UploadPageState extends State<UploadPage> {
         children: [
           Positioned.fill(
             child: Image.asset(
-              "lib/assets/images/waves_background.png", // Replace with your image path
+              "assets/images/waves_background.png", // Replace with your image path
               fit: BoxFit.cover, // Ensures the image covers the entire screen
             ),
           ),

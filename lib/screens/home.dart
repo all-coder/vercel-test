@@ -42,7 +42,7 @@ class Home extends StatelessWidget {
                   color: Color(0xff0A0908),
                   image: DecorationImage(
                     image: AssetImage(
-                      "lib/assets/images/waves_background.png", // Background vector
+                      "assets/images/waves_background.png", // Background vector
                     ),
                     fit: BoxFit.cover,
                   ),
