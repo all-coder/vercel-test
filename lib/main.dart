@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:tirutsava/screens/splash.dart';
 // import '/screens/uploadpage.dart';
 // import '/screens/gallery.dart';
+import './screens/home.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -50,7 +51,7 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return MaterialApp(
       debugShowCheckedModeBanner: false,
-      home: SplashScreen(),
+      home: Home(),
       
     );
   }
