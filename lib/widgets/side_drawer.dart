@@ -68,6 +68,7 @@ class SideDrawer extends StatelessWidget {
             ),
             title: Text(
               'Reminisce',
+              
               style: GoogleFonts.ibmPlexMono(
                   fontWeight: FontWeight.w400,
                   fontSize: 25,

@@ -1,7 +1,6 @@
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:tirutsava/screens/splash.dart';
-import 'dart:io';
 import 'package:flutter/foundation.dart';
 // import '/screens/uploadpage.dart';
 // import '/screens/gallery.dart';
