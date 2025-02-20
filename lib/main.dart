@@ -10,7 +10,7 @@ void main() async {
     options: FirebaseOptions(
       apiKey: "AIzaSyD1jMqjJt0L8VacKD8pc9fSCiZgXW8pweM",
      // authDomain: "tirutsava-almanest.firebaseapp.com",
-      authDomain: "https://vercel-test-yj8m.vercel.app/",
+      authDomain: "https://vercel-test-yj8m.vercel.app",
       projectId: "tirutsava-almanest",
       storageBucket: "tirutsava-almanest.firebasestorage.app",
       messagingSenderId: "590106149140",
