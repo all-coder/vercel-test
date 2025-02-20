@@ -8,11 +8,20 @@ class Event{
   final Color background;
 }
 
-class Stall{
-  const Stall({required this.name, required this.location, required this.price, required this.startingDate, required this.endingDate});
+class Stall {
+  const Stall({
+    required this.name,
+    required this.location,
+    required this.price,
+    required this.date,
+    required this.imageUrl,
+    required this.color,
+  });
+
   final String name;
   final String location;
-  final int price;
-  final DateTime startingDate;
-  final DateTime endingDate;
+  final String price;
+  final String date;
+  final String imageUrl;
+  final Color color;
 }
