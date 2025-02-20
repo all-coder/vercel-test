@@ -1,16 +1,16 @@
 {
-    "name": "tirutsava",
-    "short_name": "tirutsava",
+    "name": "Tirutsava-Almanest",
+    "short_name": "Tirutsava",
     "start_url": ".",
     "display": "standalone",
-    "background_color": "#0175C2",
+    "background_color": "f1faee",
     "theme_color": "#0175C2",
-    "description": "A new Flutter project.",
+    "description": "Official Tirutsava App",
     "orientation": "portrait-primary",
     "prefer_related_applications": false,
     "icons": [
         {
-            "src": "icons/Icon-192.png",
+            "src": "lib/assets/images/app_logo.png",
             "sizes": "192x192",
             "type": "image/png"
         },
